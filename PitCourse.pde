@@ -145,6 +145,7 @@ void defilement() {
     nbre_coeur--;
     y_balle = random(0,460);
     x_balle = 500;
+    vitesse_balle *= 0.85;
     
     /* Système pour mettre les coeurs en noirs et blancs */
     if (nbre_coeur == 2) {
