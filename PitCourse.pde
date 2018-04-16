@@ -10,10 +10,14 @@ float bas;
 float vitesse_perso;
 float y_perso;
 float y_balle;
+float y_ballespe;
 float x_balle;
+float x_ballespe;
 float x_fond;
 float x_fond2;
 float vitesse_balle;
+int chiffrealeatoire;
+int ca2;
 int score;
 int nbre_coeur;
 PImage coeur;
@@ -22,11 +26,14 @@ PImage coeur3;
 PImage fond;
 PImage fond2;
 PFont fontScore;
-PFont fontScore2;
 PFont fontGO;
 SoundFile bg;
+SoundFile pouet;
+SoundFile pouet2;
+SoundFile gameover;
 Gif persogif;
 Gif jewel;
+Gif jewelspe;
 
 /* Initialisation */
 
@@ -39,7 +46,9 @@ void setup() {
   score = 0;
   y_perso = 250;
   x_balle = 500;
-  y_balle = random(0,488);
+  x_ballespe = 730;
+  y_balle = random(0,460);
+  y_ballespe = random(0,460);;
   vitesse_perso = 6.0;
   vitesse_balle = 2.5;
   haut = 0;
@@ -47,6 +56,8 @@ void setup() {
   nbre_coeur = 3;
   x_fond = 0;
   x_fond2 = 500;
+  chiffrealeatoire = 0;
+  ca2 = 0;
   
   /*  Chargements images */
   coeur = loadImage("assets/img/heart.png");
@@ -58,19 +69,22 @@ void setup() {
   image(fond2, x_fond2, 0); 
   
   /* Musique */
-  bg = new SoundFile(this, "E:/processing/TP7/Jeu/assets/sounds/03h49.mp3");
+  bg = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/bg.mp3");
   bg.play();
+  pouet = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/pouet.mp3");
+  pouet2 = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/pouet2.mp3");
+  gameover = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/gameover.mp3");
   
   /* Gifs */
   persogif = new Gif(this, "assets/img/bat.gif");
   persogif.play();
   jewel = new Gif(this, "assets/img/jewel.gif");
   jewel.play();
+  jewelspe = new Gif(this, "assets/img/jewel2.gif");
   
   /* Fonts */
   fontScore = createFont("assets/font/pixel.ttf",40,true);
-  fontScore2 = createFont("assets/font/pixel.ttf",45,true);
-  fontGO = createFont("assets/font/game.ttf",70,true);
+  fontGO = createFont("assets/font/game.ttf",80,true);
 }
 
 /* Fonctionnement */
@@ -103,6 +117,10 @@ void fond() {
 /* Sprite */
 
 void dessiner() {
+   /* Si ca2 est égal à 5, alors on affiche le sprite de la balle spé. Celle variable est là pour que la balle spé ne disparaisse pas quand la bouclese rejoue */ 
+   if(ca2 == 5) {
+     image(jewelspe,x_ballespe,y_ballespe);
+   }
    image(jewel,x_balle,y_balle);
    image(persogif,25,y_perso);
    image(coeur, 462, 5, 32, 32);
@@ -138,24 +156,69 @@ void defilement() {
   }
   
   /* Système pour perdre: 
-  Si l'abscisse de la balle est inférieur ou égal à 0 et que le nombre de coeur est égal à 1, alors on met le dernier coeur en bw, on arrête le fonctionnement du jeu et on affiche 
-  un game over */
+  Si l'abscisse de la balle est inférieur ou égal à 0 et que le nombre de coeur est égal à 1, alors on met le dernier coeur en bw, on arrête le fonctionnement du jeu, on affiche 
+  un game over puis on arrête la musique de fond pour mettre la musique du game over*/
   if(x_balle <= 0 && nbre_coeur == 1) {
     coeur3 = loadImage("assets/img/heart_bw.png");
     image(coeur3, 388, 5, 32, 32);
     noLoop();
+    fill(0);
     textFont(fontGO);
     text("GAME OVER", width/2, height/2);
+    bg.stop();
+    gameover.play();
   }
  
   /* Système point:  
-  Si l'ordonnée de la balle est inférieur ou égal à l'ordonnée du perso+60 (dimension image) ET si l'ordonnée de la balle est supérieure ou égal à l'ordonnée du perso ET si 
-  l'abscisse de la balle est égal à 50 alors on on remet l'ordonné (y_balle) à un nombre aléatoire entre 0 et 460 (dimension image), on remet l'abscisse (x_balle) à 500 et on
-  ajoute 1 point à la variable score*/
-  if (y_balle <= y_perso +60 && y_balle >= y_perso && x_balle == 50) {
+  Si l'ordonnée de la balle est inférieur ou égal à l'ordonnée du perso+60 (dimension image) ET si l'ordonnée de la balle est supérieure ou égal à l'ordonnée du perso-10 (plus facile) 
+  ET si l'abscisse de la balle est égal à 50 alors on on remet l'ordonné (y_balle) à un nombre aléatoire entre 0 et 460 (dimension image), on remet l'abscisse (x_balle) à 500), on
+  ajoute 1 point à la variable score, on joue le son pouet et on met la variable chiffrealéatoire à un chiffre entre 1 et 10 sans virgule*/
+  if (y_balle <= y_perso +60 && y_balle >= y_perso-10 && x_balle <= 50) {
     y_balle = random(0,460);
     x_balle = 500;
     score++;
+    pouet.play();
+    chiffrealeatoire = (int)random(1,10);
+    println(chiffrealeatoire);
+    
+    /* Système pour accélérer la balle 1 fois sur 2
+    Si le score est pair, alors on accélère */
+    if(score%2 == 0) {
+      acceleration();
+    }
+    
+    /* Si le chiffre aléatoire est 5, alors on met ca2 (deuxième variable pour eviter qu'elle ne change en plein trajet) égal à lui et on joue l'animation de la balle */
+    if(chiffrealeatoire == 5) {
+      ca2 = chiffrealeatoire;
+      println(y_ballespe);
+      jewelspe.play();
+    }
+  }
+  
+  /* Balle spéciale */
+  if(ca2 == 5) {
+    /*Si l'abscisse de la balle spé est supérieur ou égal à 0, alors il est soustrait à la vitesse de la balle */
+    if(x_ballespe >= 0) {
+      x_ballespe -= vitesse_balle;
+    }
+    
+    /* Système point:  
+    Si l'ordonnée de la balle spé est inférieur ou égal à l'ordonnée du perso+60 (dimension image) ET si l'ordonnée de la balle spé est supérieure ou égal à l'ordonnée du perso-10 
+    (plus facile) ET si l'abscisse de la balle spé est égal à 50 alors on joue le son pouet2, on augmente la vitesse du perso (c le pouvoir), on remet la balle spé à son état
+    initial puis on remet ca2 au nouvea chiffre aléatoire */
+    if (y_ballespe <= y_perso +60 && y_ballespe >= y_perso-10 && x_ballespe <= 50) {
+      pouet2.play();
+      vitesse_perso *= 1.1;
+      x_ballespe = 730;
+      y_ballespe = random(0,460);
+      ca2 = chiffrealeatoire;
+    }
+    
+    if(x_ballespe <= 0) { 
+      x_ballespe = 730;
+      ca2 = chiffrealeatoire;
+      y_ballespe = random(0,460);
+    }
   }
   
   /* Système de déplacement avec zone de jeu:
@@ -181,16 +244,12 @@ void defilement() {
 /* Affichage score */
 void score() {
   fill(0);
-  textFont(fontScore2);
-  text(score, width/2, 20);
-  fill(255);
   textFont(fontScore);
-  text(score, width/2, 20);
+  text(score, width/2, 15);
   textAlign(CENTER,CENTER);
 }
 
-/*Accélération:
-Inutiliser car il fait bugguer le jeu */
+/* Accélération: */
 void acceleration() {
   vitesse_balle *= 1.05;
 }
