@@ -16,6 +16,7 @@ float x_ballespe;
 float x_fond;
 float x_fond2;
 float vitesse_balle;
+float vitesse_fond;
 int chiffrealeatoire;
 int ca2;
 int score;
@@ -25,11 +26,13 @@ PImage coeur2;
 PImage coeur3;
 PImage fond;
 PImage fond2;
+PImage icon;
 PFont fontScore;
 PFont fontGO;
 SoundFile bg;
 SoundFile pouet;
 SoundFile pouet2;
+SoundFile pouet3;
 SoundFile gameover;
 Gif persogif;
 Gif jewel;
@@ -44,13 +47,14 @@ void setup() {
   
   /* Valeurs varibles */
   score = 0;
-  y_perso = 250;
+  y_perso = 215;
   x_balle = 500;
   x_ballespe = 730;
   y_balle = random(0,460);
-  y_ballespe = random(0,460);;
+  y_ballespe = random(0,460);
   vitesse_perso = 6.0;
   vitesse_balle = 2.5;
+  vitesse_fond = 1;
   haut = 0;
   bas = 0;
   nbre_coeur = 3;
@@ -65,6 +69,8 @@ void setup() {
   coeur3 = loadImage("assets/img/heart.png");
   fond = loadImage("assets/img/fond.png");
   fond2 = loadImage("assets/img/fond.png");
+  icon = loadImage("assets/img/logo.png");
+  surface.setIcon(icon);
   image(fond, x_fond, 0);
   image(fond2, x_fond2, 0); 
   
@@ -73,6 +79,7 @@ void setup() {
   bg.play();
   pouet = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/pouet.mp3");
   pouet2 = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/pouet2.mp3");
+  pouet3 = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/pouet3.mp3");
   gameover = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/gameover.mp3");
   
   /* Gifs */
@@ -101,14 +108,14 @@ void draw() {
 void fond() {
    /* 1ere image qui commence à x_fond (0), qui défile jusqu'à que son abscisse atteigne -500 et qui se remet à ses coords de départ */
    image(fond, x_fond, 0);
-   x_fond--;
+   x_fond -= vitesse_fond;
    if (x_fond <= -500) {
      x_fond = 0;  
    }
    
    /* 2nd image qui commence à x_fond2 (500), qui défile jusqu'à que son abscisse (x_fond2) atteigne 0 et qui se remet à ses coords de départ */
    image(fond, x_fond2, 0);
-   x_fond2--;
+   x_fond2 -= vitesse_fond;
    if (x_fond2 <= 0) {
      x_fond2 = 500;  
    }
@@ -146,6 +153,7 @@ void defilement() {
     y_balle = random(0,460);
     x_balle = 500;
     vitesse_balle *= 0.85;
+    pouet3.play();
     
     /* Système pour mettre les coeurs en noirs et blancs */
     if (nbre_coeur == 2) {
@@ -160,14 +168,16 @@ void defilement() {
   Si l'abscisse de la balle est inférieur ou égal à 0 et que le nombre de coeur est égal à 1, alors on met le dernier coeur en bw, on arrête le fonctionnement du jeu, on affiche 
   un game over puis on arrête la musique de fond pour mettre la musique du game over*/
   if(x_balle <= 0 && nbre_coeur == 1) {
+    pouet3.play();
     coeur3 = loadImage("assets/img/heart_bw.png");
     image(coeur3, 388, 5, 32, 32);
-    noLoop();
+    nbre_coeur = 0;
     fill(0);
     textFont(fontGO);
     text("GAME OVER", width/2, height/2);
     bg.stop();
     gameover.play();
+    noLoop();
   }
  
   /* Système point:  
@@ -180,7 +190,6 @@ void defilement() {
     score++;
     pouet.play();
     chiffrealeatoire = (int)random(1,10);
-    println(chiffrealeatoire);
     
     /* Système pour accélérer la balle 1 fois sur 2
     Si le score est pair, alors on accélère */
@@ -191,7 +200,6 @@ void defilement() {
     /* Si le chiffre aléatoire est 5, alors on met ca2 (deuxième variable pour eviter qu'elle ne change en plein trajet) égal à lui et on joue l'animation de la balle */
     if(chiffrealeatoire == 5) {
       ca2 = chiffrealeatoire;
-      println(y_ballespe);
       jewelspe.play();
     }
   }
@@ -210,12 +218,14 @@ void defilement() {
     if (y_ballespe <= y_perso +60 && y_ballespe >= y_perso-10 && x_ballespe <= 50) {
       pouet2.play();
       vitesse_perso *= 1.1;
+      vitesse_fond += 1;
       x_ballespe = 730;
       y_ballespe = random(0,460);
       ca2 = chiffrealeatoire;
     }
     
     if(x_ballespe <= 0) { 
+      pouet3.play();
       x_ballespe = 730;
       ca2 = chiffrealeatoire;
       y_ballespe = random(0,460);
@@ -270,7 +280,31 @@ void keyPressed() {
   if (key == CODED && keyCode == UP) {
       haut = 1;
   } 
+  
   else if (key == CODED && keyCode == DOWN) {
       bas = 1;
-  } 
+  }
+  
+  /* Système pour rejouer
+  Si le nombre de coeur est de 0 et qu'on appuit sur la touche r, alors la boucle se relance et on remet les valeurs des vairables à celle de base, on remet les coeurs rouges
+  et on remet la musique*/
+  else if (nbre_coeur == 0 && key == 'r' ) {
+    loop();
+    nbre_coeur = 3;
+    score = 0;
+    y_balle = random(0,460);
+    y_ballespe = random(0,460);
+    y_perso = 215;
+    x_fond = 0;
+    x_fond2 = 500;
+    x_balle = 500;
+    x_ballespe = 730;
+    vitesse_perso = 6.0;
+    vitesse_balle = 2.5;
+    vitesse_fond = 1;
+    bg.play();
+    coeur = loadImage("assets/img/heart.png");
+    coeur2 = loadImage("assets/img/heart.png");
+    coeur3 = loadImage("assets/img/heart.png");
+  }
 }
