@@ -2,17 +2,17 @@
 
 A 2D game made with Processing 3.0
 
-## Pour Commencer
+## Pour commencer
 
 En création dans le cadre d'un projet en ICN, PitCourse n'est pas fini. Il est donc possiblement buggué et pas complet.
 
 ## Prérequis
 
-* Processing 3.0
+* Java 8
 
 ## Installation
 
-N'ayant pas encore de version officielle, le seul moyen de jouer à PitCourse est de cloner/télécharger ce git et de le lancer avec Processing.
+Il suffit de lancer PitCourse.exe
 
 ## Où j'en suis ?
 
@@ -31,18 +31,18 @@ N'ayant pas encore de version officielle, le seul moyen de jouer à PitCourse es
 * Autre balle
 * Son
 * Game Over
+* Système pour rejouer
+* Icone
+* Première release
 
 ### En cours:
 
-* Rien pour l'instant
-
-### À Faire:
-
-* Système pour rejouer
-* Icone 	
-* Premiere release officielle
-* Highscore
 * Site
+
+### À faire:
+
+* Highscore
+* Version android
 
 ## Auteurs
 

@@ -1,7 +1,7 @@
 /* Import */
 
-import processing.sound.*;
 import gifAnimation.*;
+import ddf.minim.*;
 
 /* Variables */
 
@@ -29,11 +29,12 @@ PImage fond2;
 PImage icon;
 PFont fontScore;
 PFont fontGO;
-SoundFile bg;
-SoundFile pouet;
-SoundFile pouet2;
-SoundFile pouet3;
-SoundFile gameover;
+Minim minim;
+AudioPlayer bg;
+AudioPlayer pouet;
+AudioPlayer pouet2;
+AudioPlayer pouet3;
+AudioPlayer gameover;
 Gif persogif;
 Gif jewel;
 Gif jewelspe;
@@ -64,34 +65,35 @@ void setup() {
   ca2 = 0;
   
   /*  Chargements images */
-  coeur = loadImage("assets/img/heart.png");
-  coeur2 = loadImage("assets/img/heart.png");
-  coeur3 = loadImage("assets/img/heart.png");
-  fond = loadImage("assets/img/fond.png");
-  fond2 = loadImage("assets/img/fond.png");
-  icon = loadImage("assets/img/logo.png");
+  coeur = loadImage("data/img/heart.png");
+  coeur2 = loadImage("data/img/heart.png");
+  coeur3 = loadImage("data/img/heart.png");
+  fond = loadImage("data/img/fond.png");
+  fond2 = loadImage("data/img/fond.png");
+  icon = loadImage("data/img/icon.png");
   surface.setIcon(icon);
   image(fond, x_fond, 0);
   image(fond2, x_fond2, 0); 
   
   /* Musique */
-  bg = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/bg.mp3");
+  minim = new Minim(this);
+  bg = minim.loadFile("data/sounds/03h49.mp3");
   bg.play();
-  pouet = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/pouet.mp3");
-  pouet2 = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/pouet2.mp3");
-  pouet3 = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/pouet3.mp3");
-  gameover = new SoundFile(this, "D:/Users/Maxime/Documents/GitHub/PitCourse/assets/sounds/gameover.mp3");
+  pouet = minim.loadFile("data/sounds/pouet.mp3");
+  pouet2 = minim.loadFile("data/sounds/pouet2.mp3");
+  pouet3 = minim.loadFile("data/sounds/pouet3.mp3");
+  gameover = minim.loadFile("data/sounds/gameover.mp3");
   
   /* Gifs */
-  persogif = new Gif(this, "assets/img/bat.gif");
+  persogif = new Gif(this, "data/img/bat.gif");
   persogif.play();
-  jewel = new Gif(this, "assets/img/jewel.gif");
+  jewel = new Gif(this, "data/img/jewel.gif");
   jewel.play();
-  jewelspe = new Gif(this, "assets/img/jewel2.gif");
+  jewelspe = new Gif(this, "data/img/jewel2.gif");
   
   /* Fonts */
-  fontScore = createFont("assets/font/pixel.ttf",40,true);
-  fontGO = createFont("assets/font/game.ttf",80,true);
+  fontScore = createFont("data/font/pixel.ttf",40,true);
+  fontGO = createFont("data/font/game.ttf",80,true);
 }
 
 /* Fonctionnement */
@@ -154,13 +156,14 @@ void defilement() {
     x_balle = 500;
     vitesse_balle *= 0.85;
     pouet3.play();
+    pouet3.rewind();
     
     /* Système pour mettre les coeurs en noirs et blancs */
     if (nbre_coeur == 2) {
-      coeur = loadImage("assets/img/heart_bw.png");
+      coeur = loadImage("data/img/heart_bw.png");
     }
     if (nbre_coeur == 1) {
-      coeur2 = loadImage("assets/img/heart_bw.png");
+      coeur2 = loadImage("data/img/heart_bw.png");
     }
   }
   
@@ -169,13 +172,14 @@ void defilement() {
   un game over puis on arrête la musique de fond pour mettre la musique du game over*/
   if(x_balle <= 0 && nbre_coeur == 1) {
     pouet3.play();
-    coeur3 = loadImage("assets/img/heart_bw.png");
+    pouet3.rewind();
+    coeur3 = loadImage("data/img/heart_bw.png");
     image(coeur3, 388, 5, 32, 32);
     nbre_coeur = 0;
     fill(0);
     textFont(fontGO);
     text("GAME OVER", width/2, height/2);
-    bg.stop();
+    bg.pause();
     gameover.play();
     noLoop();
   }
@@ -189,6 +193,7 @@ void defilement() {
     x_balle = 500;
     score++;
     pouet.play();
+    pouet.rewind();
     chiffrealeatoire = (int)random(1,10);
     
     /* Système pour accélérer la balle 1 fois sur 2
@@ -217,6 +222,7 @@ void defilement() {
     initial puis on remet ca2 au nouvea chiffre aléatoire */
     if (y_ballespe <= y_perso +60 && y_ballespe >= y_perso-10 && x_ballespe <= 50) {
       pouet2.play();
+      pouet2.rewind();
       vitesse_perso *= 1.1;
       vitesse_fond += 1;
       x_ballespe = 730;
@@ -226,6 +232,7 @@ void defilement() {
     
     if(x_ballespe <= 0) { 
       pouet3.play();
+      pouet3.rewind();
       x_ballespe = 730;
       ca2 = chiffrealeatoire;
       y_ballespe = random(0,460);
@@ -302,9 +309,10 @@ void keyPressed() {
     vitesse_perso = 6.0;
     vitesse_balle = 2.5;
     vitesse_fond = 1;
+    bg.rewind();
     bg.play();
-    coeur = loadImage("assets/img/heart.png");
-    coeur2 = loadImage("assets/img/heart.png");
-    coeur3 = loadImage("assets/img/heart.png");
+    coeur = loadImage("data/img/heart.png");
+    coeur2 = loadImage("data/img/heart.png");
+    coeur3 = loadImage("data/img/heart.png");
   }
 }
