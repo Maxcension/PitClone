@@ -17,11 +17,13 @@ float x_fond;
 float x_fond2;
 float vitesse_balle;
 float vitesse_fond;
+float espace_highscore;
 int chiffrealeatoire;
 int ca2;
 int score;
 int nbre_coeur;
 int gameScreen;
+String prename;
 color play_menu;
 color quit_menu;
 PImage coeur;
@@ -30,12 +32,16 @@ PImage coeur3;
 PImage fond;
 PImage fond2;
 PImage fond_menu;
+PImage fond_go;
 PImage icon;
 PImage icon2;
 PFont fontScore;
 PFont fontGO;
 PFont fontGO2;
 PFont fontMenu;
+PFont fontVersion;
+PFont fontHighscore;
+Table table_score;
 Minim minim;
 AudioPlayer bg;
 AudioPlayer menu;
@@ -75,6 +81,7 @@ void setup() {
   gameScreen = 0;
   play_menu = color(255);
   quit_menu = color(255);
+  espace_highscore = 0;
   
   /*  Chargements images */
   coeur = loadImage("data/img/heart.png");
@@ -83,6 +90,7 @@ void setup() {
   fond = loadImage("data/img/fond.png");
   fond2 = loadImage("data/img/fond.png");
   fond_menu = loadImage("data/img/fond_menu.png");
+  fond_go = loadImage("data/img/fond_go.png");
   icon = loadImage("data/img/icon.png");
   icon2 = loadImage("data/img/icon2.png");
   surface.setIcon(icon);
@@ -109,6 +117,11 @@ void setup() {
   fontGO = createFont("data/font/game.ttf",80,true);
   fontGO2 = createFont("data/font/game.ttf",30,true);
   fontMenu = createFont("data/font/game.ttf",50,true);
+  fontVersion = createFont("data/font/pixel.ttf",15,true);
+  fontHighscore = createFont("data/font/pixel.ttf",20,true);
+  
+  /* Table highscore */
+  table_score = loadTable("data/highscore/score.csv", "header");
 }
 
 /* Fonctionnement */
@@ -255,16 +268,20 @@ void acceleration() {
 /* Les différents écrans de jeu */
 
 /* Menu */
+
 void initScreen() {
   image(fond_menu, 0, 0);
-  image(icon2, height/2-128,50);
+  image(icon2, width/2-128,40);
   menu.play();
   textAlign(CENTER);
+  textFont(fontVersion);
+  fill(255);
+  text("v1.2.0", width/2, height-15);
   textFont(fontMenu);
   fill(play_menu);
-  text("Play", height/2, 390);
+  text("Play", width/2, 370);
   fill(quit_menu);
-  text("Quit", height/2, 450);
+  text("Quit", width/2, 430);
   
   /* Système pour colorier le texte quand on met la souris dessus */
   if (mouseX <= 290 && mouseX >= 210 && mouseY <= 390 && mouseY >= 350) {
@@ -290,7 +307,7 @@ void initScreen() {
       image(fond2, x_fond2, 0);
     }
     if (mouseX <= 290 && mouseX >= 210 && mouseY <= 450 && mouseY >= 410) {
-       exit();
+      exit();
     }
   }
 }
@@ -335,13 +352,44 @@ void gameOverScreen() {
   coeur3 = loadImage("data/img/heart_bw.png");
   image(coeur3, 388, 5, 32, 32);
   nbre_coeur = 0;
+  image(fond_go, 0, 0);
+  textAlign(CENTER);
   fill(153,117,194);
   textFont(fontGO);
-  text("GAME OVER", width/2, height/2-40);
+  text("GAME OVER", width/2, height/2-150);
   textFont(fontGO2);
-  text("Press R to replay or M to go to the main menu", width/2, height/2+40);
+  text("Press R to replay or M to go to the main menu", width/2, height/2+220);
   bg.pause();
   gameover.play();
+  menu.play();
+  
+  /*Fonctionnement table highscore */
+  
+  /* Nom */
+  prename = new Dialog().readString("Quel est ton nom ? (3 lettres)");
+  String name = prename.substring(0,3);
+  name = name.toUpperCase();
+  
+  /* Nouvelle rangée avec l'id, le score et le nom */
+  TableRow row = table_score.addRow();
+  row.setInt("id", table_score.lastRowIndex());
+  row.setString("name", name);
+  row.setInt("score", score);
+  
+  /* Triage et enregistrement de la nouvelle table */
+  table_score.sort("score");
+  saveTable(table_score, "data/highscore/score.csv");
+  
+  /* Boucle pour afficher l'highscore de manière optimisée */
+  for(int i= 0; i <= 10; i += 1){
+    row = table_score.getRow(table_score.lastRowIndex()-i);
+    String highscore = row.getString("name") + ": " + row.getString("score");
+    espace_highscore += 28.5;
+    textAlign(CENTER);
+    textFont(fontHighscore);
+    text(highscore, width/2, 110+espace_highscore);
+  }
+  
   noLoop();
 }
 
@@ -372,6 +420,8 @@ void keyPressed() {
     loop();
     gameScreen = 1;
     rejouer();
+    menu.pause();
+    menu.rewind();
   }
   
   /* Si l'écran de jeu est le Game Over et qu'on appuit sur la touche m, alors la boucle se relance et on remet l'écran du menu et on fait appel à la procédure rejouer */
@@ -384,6 +434,7 @@ void keyPressed() {
 
 /* Procédure qui permet de remettre tout correctement avant de rejouer */
 void rejouer() {
+
   nbre_coeur = 3;
   score = 0;
   y_balle = random(0,460);

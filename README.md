@@ -35,15 +35,16 @@ Il suffit de lancer PitCourse.exe
 * Icone
 * Première release
 * Menu
+* Version dans le menu
+* Highscore
 
 ### En cours:
 
-* Site
+
 
 ### À faire:
 
-* Version dans le menu
-* Highscore
+* Site
 * Version android
 
 ## Auteur
