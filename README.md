@@ -18,33 +18,21 @@ Il suffit de lancer PitCourse.exe
 
 ### Fait:
 
-* Balle qui monte et descend
-* Points qui défilent
-* Scoring
-* Système de coeur
-* Limiter le déplacement de la balle et des points
-* Fond qui défile
-* Musique
-* Améliorer design
-* Commenter le code
-* Difficulté qui augmente
-* Autre balle
-* Son
-* Game Over
+* Pit
+* Cristaux
+* Scoring & Highscore
+* Système de coeurs
+* Fond
+* Musique & Son
 * Système pour rejouer
-* Icone
-* Première release
-* Menu
-* Version dans le menu
-* Highscore
+* Différents écran (menu, jeu, gameover)
 
 ### En cours:
 
-
+* Site
 
 ### À faire:
 
-* Site
 * Version android
 
 ## Auteur
@@ -56,7 +44,7 @@ Il suffit de lancer PitCourse.exe
 * [**criid / requin / naffa / suicideolive**](https://twitter.com/suicideolive) - *Musiques*
 * [**ansimuz**](https://ansimuz.itch.io/grotto-escape-chibi-monsters) - *Sprite personnage, modifié par Maxcension*
 * [**Warren Clark**](https://lionheart963.itch.io/free-platformer-assets) - *Sprites cristaux, modifiés et animés par Maxcension*
-* [**Paulina Riva**](https://opengameart.org/content/sky-background) - Background
+* [**Paulina Riva**](https://opengameart.org/content/sky-background) - *Background*
 * [**JDWasabi**](https://jdwasabi.itch.io/8-bit-16-bit-sound-effects-pack) - *Bruitages cristaux*
 * [**Soughtaftersounds**](https://freesound.org/people/Soughtaftersounds/) - *Bruitage menu*
 * [**themusicalnomad**](https://freesound.org/people/themusicalnomad/) - *Son Game Over*

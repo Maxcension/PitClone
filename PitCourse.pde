@@ -180,7 +180,7 @@ void defilement() {
   Si l'ordonnée de la balle est inférieur ou égal à l'ordonnée du perso+60 (dimension image) ET si l'ordonnée de la balle est supérieure ou égal à l'ordonnée du perso-10 (plus facile) 
   ET si l'abscisse de la balle est égal à 50 alors on on remet l'ordonné (y_balle) à un nombre aléatoire entre 0 et 460 (dimension image), on remet l'abscisse (x_balle) à 500), on
   ajoute 1 point à la variable score, on joue le son pouet et on met la variable chiffrealéatoire à un chiffre entre 1 et 10 sans virgule*/
-  if (y_balle <= y_perso +60 && y_balle >= y_perso-10 && x_balle <= 50) {
+  if (y_balle <= y_perso +60 && y_balle >= y_perso-20 && x_balle <= 50) {
     y_balle = random(0,460);
     x_balle = 500;
     score++;
@@ -212,7 +212,7 @@ void defilement() {
     Si l'ordonnée de la balle spé est inférieur ou égal à l'ordonnée du perso+60 (dimension image) ET si l'ordonnée de la balle spé est supérieure ou égal à l'ordonnée du perso-10 
     (plus facile) ET si l'abscisse de la balle spé est égal à 50 alors on joue le son pouet2, on augmente la vitesse du perso (c'est le pouvoir), on remet la balle spé à son état
     initial puis on remet ca2 au nouveau chiffre aléatoire */
-    if (y_ballespe <= y_perso +60 && y_ballespe >= y_perso-10 && x_ballespe <= 50) {
+    if (y_ballespe <= y_perso +60 && y_ballespe >= y_perso-20 && x_ballespe <= 50) {
       pouet2.play();
       pouet2.rewind();
       vitesse_perso *= 1.1;
@@ -284,10 +284,10 @@ void initScreen() {
   text("Quit", width/2, 430);
   
   /* Système pour colorier le texte quand on met la souris dessus */
-  if (mouseX <= 290 && mouseX >= 210 && mouseY <= 390 && mouseY >= 350) {
+  if (mouseX <= 290 && mouseX >= 210 && mouseY <= 370 && mouseY >= 330) {
     play_menu = color(153,117,194);
   }
-  else if (mouseX <= 290 && mouseX >= 210 && mouseY <= 450 && mouseY >= 410) {
+  else if (mouseX <= 290 && mouseX >= 210 && mouseY <= 430 && mouseY >= 390) {
     quit_menu = color(153,117,194);
   }
   else {
@@ -297,7 +297,7 @@ void initScreen() {
   
   /* Quand on clique sur Play ou sur Quit */
   if (mousePressed) {
-    if (mouseX <= 290 && mouseX >= 210 && mouseY <= 390 && mouseY >= 350) {
+    if (mouseX <= 290 && mouseX >= 210 && mouseY <= 370 && mouseY >= 330) {
       gameScreen = 1;
       pouet_menu.play();
       pouet_menu.rewind();
@@ -306,7 +306,7 @@ void initScreen() {
       image(fond, x_fond, 0);
       image(fond2, x_fond2, 0);
     }
-    if (mouseX <= 290 && mouseX >= 210 && mouseY <= 450 && mouseY >= 410) {
+    if (mouseX <= 290 && mouseX >= 210 && mouseY <= 430 && mouseY >= 390) {
       exit();
     }
   }
@@ -361,6 +361,7 @@ void gameOverScreen() {
   text("Press R to replay or M to go to the main menu", width/2, height/2+220);
   bg.pause();
   gameover.play();
+  gameover.rewind();
   menu.play();
   
   /*Fonctionnement table highscore */
@@ -389,7 +390,7 @@ void gameOverScreen() {
     textFont(fontHighscore);
     text(highscore, width/2, 110+espace_highscore);
   }
-  
+  espace_highscore = 0;
   noLoop();
 }
 
