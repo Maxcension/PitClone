@@ -22,18 +22,16 @@ Il suffit de lancer PitCourse.exe
 * Cristaux
 * Scoring & Highscore
 * Système de coeurs
-* Fond
+* Fonds
 * Musique & Son
 * Système pour rejouer
-* Différents écran (menu, jeu, gameover)
+* Différents écrans (menu, jeu, gameover, aide et highscore)
 
 ### En cours:
 
 * Site
 
 ### À faire:
-
-* Version android
 
 ## Auteur
 
@@ -44,9 +42,11 @@ Il suffit de lancer PitCourse.exe
 * [**criid / requin / naffa / suicideolive**](https://twitter.com/suicideolive) - *Musiques*
 * [**ansimuz**](https://ansimuz.itch.io/grotto-escape-chibi-monsters) - *Sprite personnage, modifié par Maxcension*
 * [**Warren Clark**](https://lionheart963.itch.io/free-platformer-assets) - *Sprites cristaux, modifiés et animés par Maxcension*
-* [**Paulina Riva**](https://opengameart.org/content/sky-background) - *Background*
+* [**Paulina Riva**](https://opengameart.org/content/sky-background) - *Background du jeu*
+* [**Trianglify**](https://trianglify.io) - *Background des menus, fait par Maxcension*
 * [**JDWasabi**](https://jdwasabi.itch.io/8-bit-16-bit-sound-effects-pack) - *Bruitages cristaux*
 * [**Soughtaftersounds**](https://freesound.org/people/Soughtaftersounds/) - *Bruitage menu*
 * [**themusicalnomad**](https://freesound.org/people/themusicalnomad/) - *Son Game Over*
 * [**Marco Trujillo López**](https://www.dafont.com/fr/profile.php?user=322799) - *Police Game Over*
 * [**MaxiGamer**](https://www.dafont.com/fr/profile.php?user=856411) - *Police Score*
+* [**Xelu**](https://opengameart.org/content/free-keyboard-and-controllers-prompts-pack) - *Assets touches, modifiées par Maxcension*
