@@ -4,7 +4,7 @@ A 2D game made with Processing 3.0
 
 ## Pour commencer
 
-En création dans le cadre d'un projet en ICN, PitCourse n'est pas fini. Il est donc possiblement buggué et pas complet.
+En création dans le cadre d'un projet en ICN, PitCourse est un jeu 2D fait avec Processing 3.0. Le site qui explique mieux le projet est disponible ici(http://pitcourse.cf).
 
 ## Prérequis
 
@@ -25,13 +25,16 @@ Il suffit de lancer PitCourse.exe
 * Fonds
 * Musique & Son
 * Système pour rejouer
-* Différents écrans (menu, jeu, gameover, aide et highscore)
+* Différents écrans (menu, jeu, gameover, aide, highscore et customisation)
+* Site
 
 ### En cours:
 
-* Site
+* Version JS(https://www.github.com/Maxcension/PitCourse-Demo)
 
 ### À faire:
+
+* Version Android
 
 ## Auteur
 
@@ -47,6 +50,6 @@ Il suffit de lancer PitCourse.exe
 * [**JDWasabi**](https://jdwasabi.itch.io/8-bit-16-bit-sound-effects-pack) - *Bruitages cristaux*
 * [**Soughtaftersounds**](https://freesound.org/people/Soughtaftersounds/) - *Bruitage menu*
 * [**themusicalnomad**](https://freesound.org/people/themusicalnomad/) - *Son Game Over*
-* [**Marco Trujillo López**](https://www.dafont.com/fr/profile.php?user=322799) - *Police Game Over*
-* [**MaxiGamer**](https://www.dafont.com/fr/profile.php?user=856411) - *Police Score*
+* [**Marco Trujillo López**](https://www.dafont.com/fr/profile.php?user=322799) - *Police 1*
+* [**MaxiGamer**](https://www.dafont.com/fr/profile.php?user=856411) - *Police 2*
 * [**Xelu**](https://opengameart.org/content/free-keyboard-and-controllers-prompts-pack) - *Assets touches, modifiées par Maxcension*
