@@ -4,7 +4,7 @@ A 2D game made with Processing 3.0
 
 ## Pour commencer
 
-En création dans le cadre d'un projet en ICN, PitCourse est un jeu 2D fait avec Processing 3.0. Le site qui explique mieux le projet est disponible ici(http://pitcourse.cf).
+En création dans le cadre d'un projet en ICN, PitCourse est un jeu 2D fait avec Processing 3.0. Le site qui explique mieux le projet est disponible [ici](http://pitcourse.cf).
 
 ## Prérequis
 
@@ -30,7 +30,7 @@ Il suffit de lancer PitCourse.exe
 
 ### En cours:
 
-* Version JS(https://www.github.com/Maxcension/PitCourse-Demo)
+* [Version JS](https://www.github.com/Maxcension/PitCourse-Demo)
 
 ### À faire:
 
