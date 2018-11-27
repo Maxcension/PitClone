@@ -30,11 +30,7 @@ Il suffit de lancer PitCourse.exe
 
 ### En cours:
 
-* [Version JS](https://www.github.com/Maxcension/PitCourse-Demo)
-
-### À faire:
-
-* Version Android
+* [Version JS](https://www.github.com/Maxcension/PitCourse-Demo) : Abandonné
 
 ## Auteur
 
