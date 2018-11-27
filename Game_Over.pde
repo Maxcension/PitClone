@@ -12,7 +12,7 @@ void gameover() {
   /* Tableau *\
    
   /* Nom */
-  prename = showInputDialog("Nickname? (3 letters max)");
+  prename = showInputDialog(nickname);
 
   if (prename == null) {
     noLoop();
@@ -20,7 +20,7 @@ void gameover() {
   }
 
   while (prename.length() < 3) {
-    prename = showInputDialog("Error, retry please!\nNickname? (3 letters max)");
+    prename = showInputDialog(nickname2);
   }
   String name = prename.substring(0, 3);
   name = name.toUpperCase();
@@ -35,7 +35,7 @@ void gameover() {
   table_score.sort("score");
   saveTable(table_score, "data/highscore/score.csv");
 
-  image(fond_go, 0, 0);
+  image(fond, 0, 0);
   textAlign(CENTER);
   fill(255);
   textFont(font2);
@@ -43,7 +43,7 @@ void gameover() {
   text("GAME OVER", width/2, 70);
   textFont(font2);
   textSize(30);
-  text("Press R to replay or M to go to the main menu", width/2, 480);
+  text(go, width/2, 480);
 
   /* Boucle pour afficher l'highscore de manière optimisée */
   for (int i= 0; i <= 10; i += 1) {

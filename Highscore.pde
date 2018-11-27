@@ -1,5 +1,5 @@
 void highscore() {
-  image(fond_menu, 0, 0);
+  image(fond, 0, 0);
   fill(255);
 
   for (int i= 0; i <= 10; i += 1) {
@@ -19,7 +19,7 @@ void highscore() {
   textFont(font2);
   textSize(50);
   fill(play_menu);
-  text("Return", width/2, 485);
+  text(retour, width/2, 485);
 
   if (mouseX <= 305 && mouseX >= 190 && mouseY <= 485 && mouseY >= 450) {
     play_menu = color(153, 117, 194);
@@ -29,6 +29,8 @@ void highscore() {
 
   if (mousePressed) {
     if (mouseX <= 305 && mouseX >= 190 && mouseY <= 485 && mouseY >= 450) {
+      pouet_menu2.play();
+      pouet_menu2.rewind();
       ecran = 0;
     }
   }

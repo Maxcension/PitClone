@@ -1,13 +1,13 @@
 void jeu() {
   /* 1ere image qui commence à x_fond (0), qui défile jusqu'à que son abscisse atteigne -500 et qui se remet à ses coords de départ */
-  image(fond, x_fond, 0);
+  image(fondgif, x_fond, 0);
   x_fond -= vitesse_bf;
   if (x_fond <= -500) {
     x_fond = 0;
   }
 
   /* 2nd image qui commence à x_fond2 (500), qui défile jusqu'à que son abscisse (x_fond2) atteigne 0 et qui se remet à ses coords de départ */
-  image(fond, x_fond2, 0);
+  image(fondgif, x_fond2, 0);
   x_fond2 -= vitesse_bf;
   if (x_fond2 <= 0) {
     x_fond2 = 500;
@@ -35,6 +35,7 @@ void jeu() {
     } 
     if (ca3 == 5) {
       image(jewelspe5, x_ballespe, y_ballespe);
+      sballe = 5;
     }
   }
 
@@ -57,12 +58,12 @@ void jeu() {
   if (sperso == 6) {
     image(perso6, 25, y_perso);
   }
-  image(coeur, 462, 5, 32, 32);
-  image(coeur2, 425, 5, 32, 32);
-  image(coeur3, 388, 5, 32, 32);
+  image(coeur, 462, 5);
+  image(coeur2, 425, 5);
+  image(coeur3, 388, 5);
   bg.play();
 
-  fill(153, 117, 194);
+  fill(255, 255, 255);
   textSize(50);
   textFont(font1);
   text(score, width/2, 15);
@@ -122,7 +123,7 @@ void jeu() {
     /* Si le chiffre aléatoire est 5, alors on met ca2 (deuxième variable pour eviter qu'elle ne change en plein trajet) égal à lui */
     if (ca == 5 && ca2 != 5) {
       ca2 = ca;
-      ca3 = (int)random(1, 5);
+      ca3 = (int)random(1, 6);
     }
   }
 

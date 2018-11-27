@@ -1,7 +1,7 @@
 void aide() {
 
   if (page_aide == 1) {
-    image(fond_menu, 0, 0);
+    image(fond, 0, 0);
     image(up, width/2-80, 65);
     image(z, width/2-20, 65);
     image(w, width/2+40, 65);
@@ -16,16 +16,16 @@ void aide() {
     textAlign(CENTER);
     textLeading(25);
     fill(255);
-    text("Press UP, Z or W to go up", width/2, 130);
-    text("Press DOWN or S to go down", width/2, 215);
-    text("This is a basic crystal\n You have to catch it or you'll lose 1 heart", width/2, 275);
-    text("This is a special crystal\n You aren't obligated to catch it\n It gives you 1 heart if you lost one and\n it increases the speed of Pit", width/2, 370);
+    text(dir1, width/2, 130);
+    text(dir2, width/2, 215);
+    text(cris1, width/2, 275);
+    text(cris2, width/2, 370);
 
     image(fleche_gauche, 430, 430);
   }
 
   if (page_aide == 2) {
-    image(fond_menu, 0, 0);
+    image(fond, 0, 0);
 
     image(jewelspe2, width/2-20, 70);
     image(jewelspe3, width/2-20, 150);
@@ -37,10 +37,10 @@ void aide() {
     textAlign(CENTER);
     textLeading(25);
     fill(255);
-    text("This special crytal makes you lost 1 point", width/2, 135);
-    text("This special crytal makes you win 2 points and\n it increases the speed of Pit", width/2, 215);
-    text("This special crytal makes you lost 1 heart", width/2, 322.5);
-    text("This special crytal makes you win 1 point and\n it very increases the speed of Pit", width/2, 405);
+    text(cris3, width/2, 135);
+    text(cris4, width/2, 215);
+    text(cris5, width/2, 322.5);
+    text(cris6, width/2, 405);
 
     image(fleche_droite, 10, 430);
   }
@@ -48,11 +48,11 @@ void aide() {
   textFont(font2);
   textSize(65);
   textAlign(CENTER);
-  text("Help", width/2, 50);
+  text(help, width/2, 50);
   textFont(font2);
   textSize(50);
   fill(play_menu);
-  text("Return", width/2, 490);
+  text(retour, width/2, 490);
 
   if (mouseX <= 310 && mouseX >= 190 && mouseY <= 490 && mouseY >= 450) {
     play_menu = color(153, 117, 194);
@@ -68,11 +68,17 @@ void aide() {
 
   if (mousePressed) {
     if (mouseX <= 310 && mouseX >= 190 && mouseY <= 490 && mouseY >= 450) {
+      pouet_menu2.play();
+      pouet_menu2.rewind();
       ecran = 0;
       page_aide = 1;
     } else if ((mouseX <= 496 && mouseX >= 430 && mouseY <= 496 && mouseY >= 430) && (page_aide == 1)) {
+      pouet_menu2.play();
+      pouet_menu2.rewind();
       page_aide = 2;
     } else if ((mouseX <= 74 && mouseX >= 10 && mouseY <= 496 && mouseY >= 430) && (page_aide == 2)) {
+      pouet_menu2.play();
+      pouet_menu2.rewind();
       page_aide = 1;
     }
   }

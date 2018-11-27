@@ -7,22 +7,22 @@ import static javax.swing.JOptionPane.*;
 /* Variables */
 
 float haut, bas, vitesse_perso, y_perso, y_balle, y_ballespe, x_balle, x_ballespe, x_fond, x_fond2, vitesse_bf, espace_highscore;
-int ca, ca2, ca3, score, nbre_coeur, ecran, highscore_design, sperso, sballe, page_aide;
-String prename, skin;
+int ca, ca2, ca3, score, nbre_coeur, ecran, highscore_design, sperso, sballe, page_aide, lang;
+String prename, skin, dir1, dir2, cris1, cris2, cris3, cris4, cris5, cris6, retour, play, quit, help, chskin, chskin2, skin1, skin2, skin3, skin4, skin5, skin6, nickname, nickname2, go;;
 color play_menu, quit_menu;
-PImage coeur, coeur2, coeur3, fond, fond_menu, fond_go, icon, icon2, up, down, z, w, s, gamepad, trophy, custom, site, fleche_gauche, fleche_droite;
+PImage coeur, coeur2, coeur3, fond, icon, icon2, up, down, z, w, s, gamepad, trophy, custom, site, fleche_gauche, fleche_droite, fr_flag, uk_flag;
 PFont font1, font2;
 Table table_score;
 Minim minim;
-AudioPlayer bg, menu, pouet, pouet2, pouet3, pouet4, pouet_menu, gameover;
-Gif perso, perso2, perso3, perso4, perso5, perso6, jewel, jewelspe, jewelspe2, jewelspe3, jewelspe4, jewelspe5;
+AudioPlayer bg, menu, pouet, pouet2, pouet3, pouet4, pouet_menu, pouet_menu2, gameover;
+Gif perso, perso2, perso3, perso4, perso5, perso6, jewel, jewelspe, jewelspe2, jewelspe3, jewelspe4, jewelspe5, fondgif;
 
 /* Initialisation */
 
 void setup() {
   /* Fenêtre */
   frameRate(60);
-  smooth(0);
+  smooth(2);
   size(500, 500); 
 
 
@@ -44,7 +44,7 @@ void setup() {
   ca2 = 0;
   ca3 = 0;
   highscore_design = 1;
-  ecran = 0;
+  ecran = 6;
   play_menu = color(255);
   quit_menu = color(255);
   espace_highscore = 3;
@@ -52,14 +52,13 @@ void setup() {
   sballe = 0;
   skin = "Normal";
   page_aide = 1;
+  lang = 0;
 
   /*  Chargements images */
   coeur = loadImage("img/heart.png");
   coeur2 = loadImage("img/heart.png");
   coeur3 = loadImage("img/heart.png");
-  fond = loadImage("img/fond.png");
-  fond_menu = loadImage("img/fond_menu.png");
-  fond_go = loadImage("img/fond_go.png");
+  fond = loadImage("img/fond_go.png");
   icon = loadImage("img/icon.png");
   icon2 = loadImage("img/icon2.png");
   up = loadImage("img/key_up.png");
@@ -73,6 +72,8 @@ void setup() {
   site = loadImage("img/icon_site.png");
   fleche_gauche = loadImage("img/fleche.png");
   fleche_droite = loadImage("img/fleche3.png");
+  fr_flag = loadImage("img/fr_flag.png");
+  uk_flag = loadImage("img/UK_flag.png");
   surface.setIcon(icon);
 
   /* Musique */
@@ -84,6 +85,7 @@ void setup() {
   pouet3 = minim.loadFile("sounds/pouet3.mp3");
   pouet4 = minim.loadFile("sounds/pouet4.mp3");
   pouet_menu = minim.loadFile("sounds/pouet_menu.mp3");
+  pouet_menu2 = minim.loadFile("sounds/pouet5.mp3");
   gameover = minim.loadFile("sounds/gameover.mp3");
 
   /* Gifs */
@@ -112,6 +114,9 @@ void setup() {
   jewelspe4.play();
   jewelspe5 = new Gif(this, "img/jewel6.gif");
   jewelspe5.play();
+  
+  fondgif = new Gif(this, "img/fond.gif");
+  fondgif.play();
 
   /* Fonts */
   font1 = createFont("font/pixel.ttf", 40, true);
@@ -138,6 +143,8 @@ void draw() {
     highscore();
   } else if (ecran == 5) {
     customisation();
+  } else if (ecran == 6) {
+    lang();
   }
 }
 
